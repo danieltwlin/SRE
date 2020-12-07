@@ -1,0 +1,26 @@
+
+const apiRequest = {
+    url: 'https://www.xxxxx.com/api/auth/token',
+    method: 'POST',
+    header: 'Content-Type:application/json',
+    body: {
+        mode: 'raw',
+        raw: JSON.stringify({
+          "acciunt": "帳號",
+          "password": "密碼"
+          })
+      }
+};
+
+pm.sendRequest(apiRequest, function(err, res) {
+    if (!err) {
+        const jsonResponse = res.json();
+        console.log(jsonResponse);
+        
+        pm.environment.set("access_token", jsonResponse.access_token);
+        
+        console.log(jsonResponse['jsonrpc']);
+        console.log(jsonResponse['result']['token']);    //取得 json 裡的內容值
+
+    }
+});
