@@ -25,6 +25,5 @@ pm.sendRequest(apiRequest, function(err, res) {
         
         pm.environment.set("bearer_token",jsonResponse['result']['token']);  //存到環境變數
         pm.environment.set("deviceId",jsonResponse['result']['deviceId']);
-
     }
 });
