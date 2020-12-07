@@ -18,9 +18,10 @@ pm.sendRequest(apiRequest, function(err, res) {
         console.log(jsonResponse);
         
         pm.environment.set("access_token", jsonResponse.access_token);
-        
+  
         console.log(jsonResponse['jsonrpc']);
         console.log(jsonResponse['result']['token']);    //取得 json 裡的內容值
+        console.log(jsonResponse['result']['deviceId']);
 
     }
 });
