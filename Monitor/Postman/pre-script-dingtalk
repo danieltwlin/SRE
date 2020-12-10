@@ -1,0 +1,12 @@
+pm.sendRequest(
+    {
+        url: 'https://oapi.dingtalk.com/robot/send?access_token=xxxxxxxxxxxxxxxx',
+        header: 'Content-Type: application/json',
+        method: 'POST',
+        body: {
+            mode: 'raw',
+            raw: JSON.stringify({ msgtype: "text",text:{content:' 我就是我~1234!!'} })
+        }
+}, function (err, res) {
+    console.log(res);
+});
