@@ -27,3 +27,6 @@ pm.sendRequest(apiRequest, function(err, res) {
         pm.environment.set("deviceId",jsonResponse['result']['deviceId']);
     }
 });
+
+
+// 前台，使用 {{變數}} 的方式，抓取環境變數
