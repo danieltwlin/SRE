@@ -65,7 +65,7 @@ pm.sendRequest({
 });
 
 
-// 驗證
+// 驗證 ，要放在 [Test] 裡面
 pm.test("Status code is 200", function () {
     pm.response.to.have.status(200);
 });
