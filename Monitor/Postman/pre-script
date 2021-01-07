@@ -30,3 +30,11 @@ pm.sendRequest(apiRequest, function(err, res) {
 
 
 // 前台，使用 {{變數}} 的方式，抓取環境變數
+
+var test = pm.environment.get("testVar");
+
+console.log(test);
+
+if( !test) {
+    console.log("testVar is not defined");
+}
