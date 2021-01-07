@@ -38,3 +38,9 @@ console.log(test);
 if( !test) {
     console.log("testVar is not defined");
 }
+
+// Add Header
+pm.request.headers.add({
+  key: 'X-HEADER-TEST',
+  value: '1'
+});
