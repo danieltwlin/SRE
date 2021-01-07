@@ -44,3 +44,22 @@ pm.request.headers.add({
   key: 'X-HEADER-TEST',
   value: '1'
 });
+
+// 直接設定 Header
+pm.sendRequest({
+    url: "https://mydomain/ers/config/endpoint",
+    method: 'GET',
+    header: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+        //'x-site-code': pm.environment.get("x-site-code")
+        'X-CSRF-TOKEN': 'fetch'
+    },
+    body: {
+        mode: 'raw'//,
+        raw: JSON.stringify({ email: pm.environment.get("email"), password: pm.environment.get("password") })
+    }
+}, function (err, res) {
+
+    pm.environment.set("X-CSRF-TOKEN", "Bearer " + res.json().token);
+});
