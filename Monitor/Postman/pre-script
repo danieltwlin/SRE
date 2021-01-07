@@ -63,3 +63,9 @@ pm.sendRequest({
 
     pm.environment.set("X-CSRF-TOKEN", "Bearer " + res.json().token);
 });
+
+
+// 驗證
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
