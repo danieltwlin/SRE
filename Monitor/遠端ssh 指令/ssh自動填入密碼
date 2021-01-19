@@ -1,0 +1,3 @@
+
+# 直接使用sshpass命令傳遞密碼
+sshpass -p "your password" scp ./abc.txt hostname/abc.txt
