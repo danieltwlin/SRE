@@ -1,3 +1,12 @@
 # 重啟指令
 http://localhost:8080/restart
 
+
+# 用管理员身份启动cmd，否则执行命令报错：否则会报系统错误5
+# 进入jenkins安装根目录
+
+# 启动命令： 
+net start jenkins
+
+# 关闭命令： 
+net stop jenkins
