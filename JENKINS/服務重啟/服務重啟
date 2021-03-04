@@ -10,3 +10,7 @@ net start jenkins
 
 # 关闭命令： 
 net stop jenkins
+
+
+# Windows 預設的目錄
+C:\Program Files (x86)\Jenkins\
