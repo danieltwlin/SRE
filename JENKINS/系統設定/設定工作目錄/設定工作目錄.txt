@@ -1,0 +1,42 @@
+# Windows 
+停掉jenkins服务器，复制旧的目录到新目录，修改环境变量JENKINS_HOME，重启jenkins所在服务器，即可
+
+
+# linux 
+
+systemctl stop jenkins
+
+# 複製工作目錄到新的位置 
+ 
+ rsync --progress -av  /var/lib/jenkins /var/app_data/
+ 
+ 不用 mv 搬移目錄的方式，
+ 只要 mv 中途失敗 (無法複製、或是 SSH 中斷等等)，
+ 想要繼續用 mv 搬移剩下的目錄/檔案時，
+ 就很容易出現「Folder already exists」之類的訊息，
+ 變成得一個個檔案搬，非常麻煩…
+ 
+複製好後，注意一下新的 /var/app_data/jenkins 的檔案擁有者 (owner)，
+假設你是用 root 跑 rsync 的話，這新的目錄可能都是屬於 root 的，
+但這會導致 Jenkins 服務沒有權限存取，
+因此要用 chown 將整個新的 /var/app_data/jenkins 目錄改成歸 jenkins 所有：
+chown -R jenkins: /var/app_data/jenkins/
+
+# 建立指向新工作目錄的符號連結
+  雖然複製了新的目錄，
+  但Jenkins 預設的工作目錄依然是 /var/lib/jenkins。
+  不想要去改設定檔的話，簡單的作法就是建立一個符號連結，
+
+  讓 /var/lib/jenkins 事實上是指到 /var/app_data/jenkins：
+  cd /var/lib
+  mv jenkins jenkins_old
+  ln -sf /var/app_data/jenkins ./
+ 
+
+# 啟動 Jenkins 服務
+ 確認檔案都複製好、且符號連結也建立好後，
+
+ 就可以用 systemctl 重新啟動 Jenkins 服務了：
+
+ systemctl start jenkins
+ 
