@@ -40,3 +40,12 @@ chown -R jenkins: /var/app_data/jenkins/
 
  systemctl start jenkins
  
+ 
+ 
+ ## 直接修改設定檔 jenkins.xml  (在執行jenkins 的目錄下)
+ 
+  <id>jenkins</id>
+  <name>Jenkins</name>
+  <description>This service runs Jenkins automation server.</description>
+  <env name="JENKINS_HOME" value="D:\Jenkins\.jenkins"/>
+ 
