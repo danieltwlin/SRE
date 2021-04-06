@@ -1,0 +1,38 @@
+node {
+    try {
+        stage('common build stage'){
+            echo 'build ...'
+        }
+        currentBuild.result = "SUCCESS"
+    } catch(e) {
+        currentBuild.result = "FAIL"
+    }
+    
+    sengMsg(currentBuild.result)
+}
+
+def sengMsg(result){
+    stage('Send Message') {
+        sendDingTalkMsg(result.equals("SUCCESS")?'Build Successful':'Build Failed')
+    }
+}
+
+def sendDingTalkMsg(buildResult) {
+    def dingTaskUrl = "SET YOUR DingTalk Robot Url Here"
+    def msgData = """
+            {
+                "actionCard": {
+                    "title": "Build Result",
+                    "text": "### ${BUILD_TAG}\n**$buildResult**",
+                    "hideAvatar": "0",
+                    "btnOrientation": "0",
+                    "singleTitle": "View Output",
+                    "singleURL": "${BUILD_URL}/consoleText"
+                },
+                "msgtype": "actionCard",
+                "hideAvatar": "1"
+            }
+        """
+    def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: msgData, url: dingTaskUrl
+    println('Response: '+response.content)
+}
