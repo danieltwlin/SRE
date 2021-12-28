@@ -1,0 +1,41 @@
+def GetRemoteServer(ip) {
+    def remote = [:]
+    remote.name = ip
+    remote.host = ip
+    remote.port = 22
+    remote.allowAnyHosts = true
+    //通过withCredentials调用Jenkins凭据中已保存的凭据，credentialsId需要填写，其他保持默认即可
+    withCredentials([usernamePassword(credentialsId: '@#$%^&*()_+', passwordVariable: 'password', usernameVariable: 'userName')]) {
+        remote.user = "user"
+        remote.password = "pwd"
+    }
+    return remote
+}
+
+pipeline {
+    agent any
+    stages {
+        stage('檢查Sokrates ORG') {
+            parallel {
+                stage('檢查上傳頻道') {
+                    steps {
+                        script{
+                        //调用上面定义好的方法
+                        rserver = GetRemoteServer('192.168.0.1')
+                        sshCommand remote: rserver, command: "/usr/bin/python /opt/monitor/monitor_1.py" //在remote server上执行命令
+                        }
+                    }
+                }
+                stage('檢查點評') {
+                    steps {
+                        script{
+                        //调用上面定义好的方法
+                        rserver = GetRemoteServer('192.168.0.1')
+                        sshCommand remote: rserver, command: "/usr/bin/python /opt/py/monitor/monitor_2.py" //在remote server上执行命令
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
