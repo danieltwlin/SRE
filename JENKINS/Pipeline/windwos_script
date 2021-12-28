@@ -1,0 +1,6 @@
+node {
+   stage '查詢目錄'
+   bat 'dir'
+   stage '查詢網路'
+   bat 'netstat -ano'
+}
