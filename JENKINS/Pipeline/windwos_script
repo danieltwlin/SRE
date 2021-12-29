@@ -1,3 +1,4 @@
+// Windows Console Command Sample
 node {
    stage '查詢目錄'
    bat 'dir'
